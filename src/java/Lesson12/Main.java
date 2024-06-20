@@ -1,51 +1,32 @@
 package Lesson12;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class Main {
+    public static void main(String[] args) {
+        String[] words = {"apple", "banana", "apple", "orange", "banana", "grape", "apple", "kiwi", "kiwi", "melon", "melon", "grape"};
 
 
-        public static void main(String[] args) {
-            String[][] array = {
-                    {"1", "2", "3", "4"},
-                    {"5", "6", "a", "8"},
-                    {"9", "10", "11", "12"},
-                    {"13", "14", "15", "16"}
-            };
+        Set<String> uniqueWords = new HashSet<>();
+        Map<String, Integer> wordCount = new HashMap<>();
 
-            try {
-                int sum = sumArray(array);
-                System.out.println("Сумма элементов массива: " + sum);
-            } catch (IllegalArgumentException e) {
-                System.err.println("Ошибка: " + e.getMessage());
-            }
+        for (String word : words) {
+            uniqueWords.add(word);
+            wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
         }
 
-        public static int sumArray(String[][] array) throws IllegalArgumentException {
-            // Проверяем размер массива
-            if (array.length != 4) {
-                throw new IllegalArgumentException("Неправильный размер массива! Количество строк должно быть 4.");
-            }
 
-            for (int i = 0; i < array.length; i++) {
-                if (array[i].length != 4) {
-                    throw new IllegalArgumentException("Неправильный размер массива! Количество столбцов в строке " + i + " должно быть 4.");
-                }
-            }
+        System.out.println("Уникальные слова: " + uniqueWords);
 
-            int sum = 0;
 
-            // Обход массива и суммирование элементов
-            for (int i = 0; i < array.length; i++) {
-                for (int j = 0; j < array[i].length; j++) {
-                    try {
-                        sum += Integer.parseInt(array[i][j]);
-                    } catch (NumberFormatException e) {
-                        // В случае ошибки преобразования к числу выбрасываем исключение с детализацией
-                        throw new NumberFormatException("Неверные данные в массиве [" + i + "][" + j + "]: " + array[i][j]);
-                    }
-                }
-            }
-
-            return sum;
+        System.out.println("Количество вхождений каждого слова:");
+        for (Map.Entry<String, Integer> entry : wordCount.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
+}
+
+
 
